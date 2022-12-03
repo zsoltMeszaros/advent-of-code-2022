@@ -1,4 +1,4 @@
-from data import calories, matches
+from data import calories, matches, rucksacks
 
 def dec_1_puzzle(calories):
 
@@ -16,6 +16,7 @@ def dec_1_puzzle(calories):
             current_max += calorie
 
     print("calories:", sum(maxes))
+
 
 def dec_2_puzzle(matches):
 
@@ -56,6 +57,43 @@ def dec_2_puzzle(matches):
     print("second half result:", second_half_result)
 
 
+def dec_3_puzzle(rucksacks):
+    rucksacks = rucksacks.splitlines()
+
+    def get_rucksack_value(rucksack):
+        result = []
+        for letter in rucksack:
+            if letter.isupper():
+                result.append(int(ord(letter)) - 38)
+            else:
+                result.append(int(ord(letter)) - 96)
+        return result
+
+    def first_half():
+        result = 0
+        for rucksack in rucksacks:
+            left, right = rucksack[:len(rucksack)//2], rucksack[len(rucksack)//2:]
+            left_list = set(get_rucksack_value(left))
+            right_list = set(get_rucksack_value(right))
+        
+            if (left_list & right_list):
+                result += (left_list & right_list).pop()
+        print(result)
+    
+    first_half()
+
+    def second_half():
+        result = 0
+        for i in range(len(rucksacks)//3):
+            print(i*3)
+            a, b, c = rucksacks[i*3], rucksacks[i*3+1], rucksacks[i*3+2]
+            a, b, c = set(get_rucksack_value(a)), set(get_rucksack_value(b)), set(get_rucksack_value(c))
+
+            result += (set(a) & set(b) & set(c)).pop()
+        print(result)
+        
+    second_half()
 
 # dec_1_puzzle(calories)
 # dec_2_puzzle(matches)
+# dec_3_puzzle(rucksacks)

@@ -1,4 +1,4 @@
-from data import calories, matches, rucksacks
+from data import calories, matches, rucksacks, pairs
 
 def dec_1_puzzle(calories):
 
@@ -69,6 +69,7 @@ def dec_3_puzzle(rucksacks):
                 result.append(int(ord(letter)) - 96)
         return result
 
+
     def first_half():
         result = 0
         for rucksack in rucksacks:
@@ -80,7 +81,6 @@ def dec_3_puzzle(rucksacks):
                 result += (left_list & right_list).pop()
         print(result)
     
-    first_half()
 
     def second_half():
         result = 0
@@ -92,8 +92,44 @@ def dec_3_puzzle(rucksacks):
             result += (set(a) & set(b) & set(c)).pop()
         print(result)
         
+    first_half()
+    second_half()
+
+
+def dec_4_puzzle(pairs):
+    pairs = pairs.splitlines()
+
+    def first_half():
+        result_counter = 0
+        for pair in pairs:
+            first, second = pair.split(",")
+            first, second = first.split("-"), second.split("-")
+
+            if int(first[0]) <= int(second[0]) and int(first[1]) >= int(second[1]):
+                result_counter += 1
+            elif int(first[0]) >= int(second[0]) and int(first[1]) <= int(second[1]):
+                result_counter += 1
+        print(result_counter)
+
+
+    def second_half():
+        result_counter = 0
+        print(len(pairs))
+        for pair in pairs:
+            first, second = pair.split(",")
+            first, second = first.split("-"), second.split("-")
+
+            if int(first[0]) > int(second[1]):
+                result_counter += 1
+            elif int(first[1]) < int(second[0]):
+                result_counter += 1
+        print(result_counter)
+
+
+    first_half()
     second_half()
 
 # dec_1_puzzle(calories)
 # dec_2_puzzle(matches)
 # dec_3_puzzle(rucksacks)
+# dec_4_puzzle(pairs)

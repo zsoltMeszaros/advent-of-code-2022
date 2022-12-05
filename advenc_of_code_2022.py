@@ -1,4 +1,5 @@
-from data import calories, matches, rucksacks, pairs
+import pprint
+from data import calories, matches, rucksacks, pairs, orders
 
 def dec_1_puzzle(calories):
 
@@ -129,7 +130,54 @@ def dec_4_puzzle(pairs):
     first_half()
     second_half()
 
+
+def dec_5_puzzle(orders):
+    base = [
+        ["D", "B", "J", "V"],
+        ["P", "V", "B", "W", "R", "D", "F"],
+        ["R", "G", "F", "L", "D", "C", "W", "Q"],
+        ["W", "J", "P", "M", "L", "N", "D", "B"],
+        ["H", "N", "B", "P", "C", "S", "Q"],
+        ["R", "D", "B", "S", "N", "G"],
+        ["Z", "B", "P", "M", "Q", "F", "S", "H"],
+        ["W", "L", "F"],
+        ["S", "V", "F", "M", "R"],
+    ]
+
+    orders = orders.splitlines()
+
+
+    def first_half():
+        for order in orders:
+            order = order.replace("move", "")
+            move, temp = order.split("from")
+            start, end = temp.split("to")
+            move, start, end = int(move), int(start)-1, int(end)-1
+
+            for _ in range(move):
+                base[end].append(base[start][-1])
+                del base[start][-1]
+
+
+    def second_half():
+        for order in orders:
+            order = order.replace("move", "")
+            move, temp = order.split("from")
+            start, end = temp.split("to")
+            move, start, end = int(move), int(start)-1, int(end)-1
+
+            base[end] += base[start][0-move:]
+            del base[start][0-move:]
+
+
+    # first_half()
+    # second_half()
+    pprint.pprint(base)
+
+
+
 # dec_1_puzzle(calories)
 # dec_2_puzzle(matches)
 # dec_3_puzzle(rucksacks)
 # dec_4_puzzle(pairs)
+# dec_5_puzzle(orders)

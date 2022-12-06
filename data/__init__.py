@@ -3,3 +3,4 @@ from .puzzle_2_data import matches
 from .puzzle_3_data import rucksacks
 from .puzzle_4_data import pairs
 from .puzzle_5_data import base, orders
+from .puzzle_6_data import datastream

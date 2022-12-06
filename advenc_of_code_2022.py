@@ -1,5 +1,5 @@
 import pprint
-from data import calories, matches, rucksacks, pairs, orders
+from data import calories, matches, rucksacks, pairs, orders, datastream
 
 def dec_1_puzzle(calories):
 
@@ -175,9 +175,27 @@ def dec_5_puzzle(orders):
     pprint.pprint(base)
 
 
+def dec_6_puzzle(datastream):
+    def first_half():
+        for i in range(len(datastream)-4):
+            if len(set(list(datastream[i:i+4]))) == 4:
+                print(i+4)
+                return
+    
+    def second_half():
+        for i in range(len(datastream)-4):
+            if len(set(list(datastream[i:i+14]))) == 14:
+                print(i+14)
+                return
+
+    # first_half()
+    # second_half()
+
+
 
 # dec_1_puzzle(calories)
 # dec_2_puzzle(matches)
 # dec_3_puzzle(rucksacks)
 # dec_4_puzzle(pairs)
 # dec_5_puzzle(orders)
+# dec_6_puzzle(datastream)

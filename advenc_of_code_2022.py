@@ -1,5 +1,9 @@
 import pprint
-from data import calories, matches, rucksacks, pairs, orders, datastream
+from data import (
+    calories, matches, rucksacks, pairs, orders, datastream, lines
+)
+
+
 
 def dec_1_puzzle(calories):
 
@@ -188,10 +192,60 @@ def dec_6_puzzle(datastream):
                 print(i+14)
                 return
 
-    # first_half()
-    # second_half()
+    first_half()
+    second_half()
 
 
+def dec_7_puzzle(lines):
+    lines = lines.splitlines()
+    folders = {}
+
+
+    to_count = False
+    current_key = ""
+    for line in lines:
+        line = line.split()
+        if to_count and line[1] == "ls":
+            continue
+        if to_count:
+            if line[0] == "dir":
+                continue
+            if line[0].isnumeric():
+                folders[current_key] += int(line[0])
+            else:
+                to_count = False
+        else:
+            if line[1] == "cd" and line[2] not in ["..", "/"]:
+                folders[line[2]] = 0
+                current_key = line[2]
+                to_count = True
+
+    to_count = False
+    for i in range(10):
+        for line in lines:
+            line = line.split()
+            if to_count and line[1] == "ls":
+                continue
+            if to_count:
+                if line[0].isnumeric():
+                    continue
+                if line[0] == "dir":
+                    if line[1] in folders.keys():
+                        folders[current_key] += folders[line[1]]
+                else:
+                    to_count = False
+            else:
+                if line[1] == "cd" and line[2] not in ["..", "/"]:
+                    current_key = line[2]
+                    to_count = True
+
+
+    print(folders)
+    result = 0
+    for value in folders.values():
+        if value <= 100000:
+            result += value
+    print(result)
 
 # dec_1_puzzle(calories)
 # dec_2_puzzle(matches)
@@ -199,3 +253,4 @@ def dec_6_puzzle(datastream):
 # dec_4_puzzle(pairs)
 # dec_5_puzzle(orders)
 # dec_6_puzzle(datastream)
+dec_7_puzzle(lines)

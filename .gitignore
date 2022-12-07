@@ -1,2 +1,4 @@
 data/__pycache__
 .vscode
+__pycache__/twilio.cpython-39.pyc
+send_sms.py

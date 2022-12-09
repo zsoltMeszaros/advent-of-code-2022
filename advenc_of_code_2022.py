@@ -1,6 +1,6 @@
 import pprint
 from data import (
-    calories, matches, rucksacks, pairs, orders, datastream, lines
+    calories, matches, rucksacks, pairs, orders, datastream, lines, forest
 )
 
 
@@ -247,10 +247,62 @@ def dec_7_puzzle(lines):
             result += value
     print(result)
 
+
+def dec_8_puzzle(forest):
+    forest = forest.splitlines()
+
+    forest_grid = []
+
+    for line in forest:
+        forest_grid.append([int(i) for i in list(line)])
+
+    vertical_forest_grid = [*map(list,zip(*forest_grid))]
+
+    result = len(forest_grid)*2 + len(vertical_forest_grid[0])*2 - 4
+
+    for i in range(1, len(forest_grid)-1):
+        print(forest_grid[i])
+        print(vertical_forest_grid[i])
+        for j in range(1, len(forest_grid[i])-1):
+            if forest_grid == 0:
+                continue
+            # print("choices:")
+            # print(sorted(forest_grid[i][:j])[-1], forest_grid[i][j])
+            # print(sorted(forest_grid[i][j+1:])[-1], forest_grid[i][j])
+            # print(sorted(vertical_forest_grid[i][:j])[-1], forest_grid[i][j])
+            # print(sorted(vertical_forest_grid[i][j+1:])[-1], forest_grid[i][j])
+            # print("chosen:")
+            # return
+            if sorted(forest_grid[i][:j])[-1] < forest_grid[i][j]:
+                # print(forest_grid[i][:j], forest_grid[i][j])
+                result += 1
+                # print("increment")
+                continue
+            elif sorted(forest_grid[i][j+1:])[-1] < forest_grid[i][j]:
+                # print(forest_grid[i][j+1:], forest_grid[i][j])
+                result += 1
+                # print("increment")
+                continue
+            elif sorted(vertical_forest_grid[i][:j])[-1] < vertical_forest_grid[i][j]:
+                # print(vertical_forest_grid[i][:j], forest_grid[i][j])
+                result += 1
+                # print("increment")
+                continue
+            elif sorted(vertical_forest_grid[i][j+1:])[-1] < vertical_forest_grid[i][j]:
+                # print(vertical_forest_grid[i][j+1:], forest_grid[i][j])
+                result += 1
+                # print("increment")
+                continue
+
+    
+    print(result)
+
+
 # dec_1_puzzle(calories)
 # dec_2_puzzle(matches)
 # dec_3_puzzle(rucksacks)
 # dec_4_puzzle(pairs)
 # dec_5_puzzle(orders)
 # dec_6_puzzle(datastream)
-dec_7_puzzle(lines)
+# dec_7_puzzle(lines)
+dec_8_puzzle(forest)
